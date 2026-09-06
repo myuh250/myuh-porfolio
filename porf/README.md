@@ -2,7 +2,7 @@
 
 k9s-style landing page for [Nguyen Tien Huy](https://github.com/myuh250) — DevOps & Infrastructure Engineer, AWS SAA-C03.
 
-Content is sourced from the Harvard-format CV in `../CV`. The UI is a static cluster console: workloads, certs, nodes, and ingress map to experience, certifications, skills, and contact. The downloadable PDF is served as `/nguyen-tien-huy-devops.pdf`.
+Content is sourced from the Harvard-format CV in `../CV`. The UI is a static cluster console: workloads, certs, skills, and ingress map to experience, certifications, skills, and contact. The downloadable PDF is served as `/nguyen-tien-huy-devops.pdf`.
 
 ## Run locally
 
@@ -22,13 +22,13 @@ npm run preview
 
 | Key | Action |
 |---|---|
-| `0`–`4` | overview / workloads / ingress / certs / nodes |
-| `j` `k` / arrows | move selection |
+| `0`–`4` | change view (overview / workloads / ingress / certs / skills) |
+| `j` `k` / arrows | next/prev row (on overview: next/prev view) |
 | `y` | copy selected resource as YAML |
 | `d` | download CV PDF |
 | click terminal | skip typewriter |
 
-Deep links: `#overview` `#workloads` `#ingress` `#certs` `#nodes`
+Deep links: `#overview` `#workloads` `#ingress` `#certs` `#skills`
 
 ## Container
 

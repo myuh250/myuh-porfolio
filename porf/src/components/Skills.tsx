@@ -1,5 +1,6 @@
 import { nodes } from "../data/cv";
-import { nodeToYaml } from "../lib/yaml";
+import { skillColor } from "../lib/skillColor";
+import { skillToYaml } from "../lib/yaml";
 import { YamlBlock } from "./YamlBlock";
 
 type Props = {
@@ -7,14 +8,14 @@ type Props = {
   onSelect: (i: number) => void
 };
 
-export function Nodes({ selected, onSelect }: Props) {
+export function Skills({ selected, onSelect }: Props) {
   const current = nodes[selected] ?? nodes[0];
 
   return (
     <div className="split">
       <div className="panel">
         <div className="panel-h">
-          <span>nodes</span>
+          <span>skills</span>
           <span>{nodes.length} ready</span>
         </div>
         <table className="resource-table">
@@ -60,7 +61,7 @@ export function Nodes({ selected, onSelect }: Props) {
       </div>
       <aside className="panel">
         <div className="panel-h">
-          <span>describe node/{current.name}</span>
+          <span>describe skill/{current.name}</span>
           <span>{current.status}</span>
         </div>
         <div className="describe">
@@ -68,14 +69,15 @@ export function Nodes({ selected, onSelect }: Props) {
             {current.skills.map((s) => (
               <span
                 key={s}
-                className={`chip${/AWS|CloudWatch|ECR|CloudFront|Route53|Bedrock/i.test(s) ? " aws" : ""}`}
+                className="chip"
+                style={{ ["--chip" as string]: skillColor(s) }}
               >
                 {s}
               </span>
             ))}
           </div>
           <div style={{ height: 12 }} />
-          <YamlBlock text={nodeToYaml(current)} />
+          <YamlBlock text={skillToYaml(current)} />
         </div>
       </aside>
     </div>

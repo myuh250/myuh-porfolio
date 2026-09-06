@@ -1,4 +1,4 @@
-import { events, engineer, type ViewId } from "../data/cv";
+import { events, engineer, VIEWS, type ViewId } from "../data/cv";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -17,9 +17,7 @@ export function StatusBar({ view, toast }: Props) {
   }, []);
 
   const ev = events[i];
-  const viewIndex = ["overview", "workloads", "ingress", "certs", "nodes"].indexOf(
-    view,
-  );
+  const viewIndex = VIEWS.indexOf(view);
 
   return (
     <footer className="status">
@@ -38,7 +36,16 @@ export function StatusBar({ view, toast }: Props) {
           <span className="reason">{ev.reason}</span> {ev.resource} — {ev.message}
         </span>
       )}
-      <span className="status-keys">0-4 views · j/k select · y yaml · d cv</span>
+      <span className="status-keys">
+        <kbd>0</kbd>–<kbd>4</kbd> change view
+        <span className="status-sep">·</span>
+        <kbd>j</kbd>/<kbd>k</kbd>{" "}
+        {view === "overview" ? "next/prev view" : "next/prev row"}
+        <span className="status-sep">·</span>
+        <kbd>y</kbd> copy YAML
+        <span className="status-sep">·</span>
+        <kbd>d</kbd> download CV
+      </span>
     </footer>
   );
 }

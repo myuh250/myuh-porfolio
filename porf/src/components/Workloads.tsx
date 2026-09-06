@@ -1,5 +1,6 @@
 import { formatLabels, workloads } from "../data/cv";
 import { DescribePane } from "./DescribePane";
+import { ManifestCard } from "./ManifestCard";
 
 type Props = {
   selected: number
@@ -10,8 +11,8 @@ export function Workloads({ selected, onSelect }: Props) {
   const current = workloads[selected] ?? workloads[0];
 
   return (
-    <div className="split">
-      <div className="panel">
+    <div className="split workloads-split">
+      <div className="panel panel-list">
         <div className="panel-h">
           <span>deployments</span>
           <span>{workloads.length} items</span>
@@ -65,6 +66,7 @@ export function Workloads({ selected, onSelect }: Props) {
         </div>
       </div>
       <DescribePane workload={current} />
+      <ManifestCard workload={current} />
     </div>
   );
 }

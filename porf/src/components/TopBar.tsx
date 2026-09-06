@@ -5,8 +5,6 @@ export function TopBar() {
     <header className="topbar">
       <div className="brand">
         <span className="brand-k9s">k9s</span>
-        <span className="brand-dot">│</span>
-        <span>portfolio</span>
       </div>
       <span className="kv">
         ctx: <b>{engineer.context}</b>
@@ -14,11 +12,12 @@ export function TopBar() {
       <span className="kv">
         ns: <b>{engineer.namespace}</b>
       </span>
-      <span className="badge" title={engineer.badge}>
-        AWS {engineer.certCode}
-      </span>
-      <div className="topbar-right">
-        <span className="kv">{engineer.location}</span>
+      <div className="topbar-tags">
+        <span className="tag tag-devops">devops</span>
+        <span className="tag tag-sre">sre</span>
+        <span className="tag tag-k8s">k8s</span>
+        <span className="tag tag-cloud">cloud</span>
+        <span className="tag tag-ai">ai</span>
       </div>
     </header>
   );

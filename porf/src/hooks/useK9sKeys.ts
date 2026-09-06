@@ -31,6 +31,9 @@ export function useK9sKeys({
         return;
       }
 
+      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      const code = e.code;
+
       if (e.key >= "0" && e.key <= "4") {
         const idx = Number(e.key);
         const next = VIEWS[idx];
@@ -41,28 +44,39 @@ export function useK9sKeys({
         return;
       }
 
-      if (e.key === "j" || e.key === "ArrowDown") {
+      const down =
+        key === "j" || key === "ArrowDown" || code === "KeyJ" || code === "ArrowDown";
+      const up =
+        key === "k" || key === "ArrowUp" || code === "KeyK" || code === "ArrowUp";
+
+      if (down || up) {
         e.preventDefault();
-        setSelected((n) => Math.min(count - 1, n + 1));
+        if (count <= 1) {
+          const idx = VIEWS.indexOf(view);
+          const next = down
+            ? (idx + 1) % VIEWS.length
+            : (idx - 1 + VIEWS.length) % VIEWS.length;
+          setView(VIEWS[next]);
+          return;
+        }
+        setSelected((n) => {
+          if (down) return (n + 1) % count;
+          return (n - 1 + count) % count;
+        });
         return;
       }
-      if (e.key === "k" || e.key === "ArrowUp") {
-        e.preventDefault();
-        setSelected((n) => Math.max(0, n - 1));
-        return;
-      }
-      if (e.key === "y") {
+      if (key === "y" || code === "KeyY") {
         e.preventDefault();
         onYank();
         return;
       }
-      if (e.key === "d") {
+      if (key === "d" || code === "KeyD") {
         e.preventDefault();
         onDownload();
       }
     };
 
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
   }, [view, setView, setSelected, count, onYank, onDownload]);
 }

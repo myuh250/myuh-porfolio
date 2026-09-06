@@ -3,6 +3,7 @@ import { VIEWS, type ViewId } from "../data/cv";
 
 function parseHash(): ViewId {
   const raw = window.location.hash.replace(/^#/, "");
+  if (raw === "nodes") return "skills";
   return (VIEWS as readonly string[]).includes(raw) ? (raw as ViewId) : "overview";
 }
 

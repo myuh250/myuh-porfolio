@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Certs } from "./components/Certs";
 import { Ingress } from "./components/Ingress";
-import { Nodes } from "./components/Nodes";
+import { Skills } from "./components/Skills";
 import { Overview } from "./components/Overview";
 import { StatusBar } from "./components/StatusBar";
 import { TopBar } from "./components/TopBar";
@@ -27,7 +27,7 @@ function countFor(view: ViewId): number {
       return workloads.length;
     case "certs":
       return certs.length;
-    case "nodes":
+    case "skills":
       return nodes.length;
     case "ingress":
       return ingress.length;
@@ -83,8 +83,8 @@ export default function App() {
         return <Ingress selected={selected} onSelect={setSelected} />;
       case "certs":
         return <Certs selected={selected} onSelect={setSelected} />;
-      case "nodes":
-        return <Nodes selected={selected} onSelect={setSelected} />;
+      case "skills":
+        return <Skills selected={selected} onSelect={setSelected} />;
     }
   }, [view, selected]);
 

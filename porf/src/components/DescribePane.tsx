@@ -1,16 +1,17 @@
-import { formatLabels, type Workload } from "../data/cv";
-import { workloadToYaml } from "../lib/yaml";
-import { ArchStrip } from "./ArchStrip";
-import { YamlBlock } from "./YamlBlock";
+import { formatLabels, keywordsFor, type Workload } from "../data/cv";
+import { highlightKeywords } from "../lib/highlight";
+import { ScrollArea } from "./ScrollArea";
 
 export function DescribePane({ workload }: { workload: Workload }) {
+  const keywords = keywordsFor(workload);
+
   return (
-    <aside className="panel">
+    <aside className="panel describe-card">
       <div className="panel-h">
         <span>describe {workload.name}</span>
         <span>{workload.status}</span>
       </div>
-      <div className="describe">
+      <ScrollArea className="describe">
         <div className="describe-meta">
           <div className="title">{workload.title}</div>
           {workload.role !== workload.title ? (
@@ -21,17 +22,12 @@ export function DescribePane({ workload }: { workload: Workload }) {
           </div>
           <div className="sub">{formatLabels(workload.labels)}</div>
         </div>
-        {workload.arch ? <ArchStrip variant={workload.arch} /> : null}
         <ul className="highlights">
           {workload.highlights.map((h) => (
-            <li key={h}>{h}</li>
+            <li key={h}>{highlightKeywords(h, keywords)}</li>
           ))}
         </ul>
-        <div className="arch-label" style={{ marginTop: 14 }}>
-          manifest
-        </div>
-        <YamlBlock text={workloadToYaml(workload, { highlights: false })} />
-      </div>
+      </ScrollArea>
     </aside>
   );
 }

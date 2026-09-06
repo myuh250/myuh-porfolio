@@ -3,7 +3,7 @@ export const VIEWS = [
   "workloads",
   "ingress",
   "certs",
-  "nodes",
+  "skills",
 ] as const;
 
 export type ViewId = (typeof VIEWS)[number];
@@ -21,9 +21,8 @@ export const engineer = {
   github: "https://github.com/myuh250",
   cvPdf: "/nguyen-tien-huy-devops.pdf",
   namespace: "portfolio",
-  context: "bosch-hcm",
+  context: "personal",
   age: "4y",
-  node: "go-vap.hcm",
   education: {
     school: "HCMC University of Technology and Engineering",
     degree: "Bachelor of Engineering, Software Engineering",
@@ -38,9 +37,7 @@ export const describeLines: string[] = [
   `Name:         ${engineer.slug}`,
   `Namespace:    ${engineer.namespace}`,
   `Status:       Running`,
-  `Age:          ${engineer.age}`,
-  `Context:      ${engineer.context}`,
-  `Node:         ${engineer.node}`,
+  `Labels:       role=devops,interest=sre,aim=solutions-architect`,
   `Roles:        devops, infrastructure`,
   `Certs:        saa-c03`,
   `Contacts:     ${engineer.email}`,
@@ -48,35 +45,46 @@ export const describeLines: string[] = [
   `              github.com/myuh250`,
 ];
 
-export const stats = [
+export type Stat = {
+  id: "iac" | "gitops" | "orch" | "sec" | "cloud" | "cert"
+  label: string
+  items: readonly string[]
+};
+
+export const stats: readonly Stat[] = [
   {
-    id: "pipeline",
-    label: "pipeline Δ",
-    value: "~65%",
-    detail: "~35 → ~11 min",
+    id: "iac",
+    label: "iac",
+    items: ["Terraform", "Terragrunt", "modules"],
   },
   {
-    id: "load",
-    label: "load test",
-    value: "~700 VU",
-    detail: "peak ~1,200",
+    id: "gitops",
+    label: "gitops",
+    items: ["ArgoCD", "Helm", "Actions"],
   },
   {
-    id: "stacks",
-    label: "AWS stacks",
-    value: "3",
-    detail: "event-driven",
+    id: "orch",
+    label: "orch",
+    items: ["Kubernetes", "Docker", "OpenShift"],
+  },
+  {
+    id: "sec",
+    label: "sec",
+    items: ["Trivy", "Sonar", "SBOM"],
+  },
+  {
+    id: "cloud",
+    label: "cloud",
+    items: ["AWS", "Azure", "GCP"],
   },
   {
     id: "cert",
     label: "cert",
-    value: "SAA-C03",
-    detail: "Amazon Web Services",
+    items: ["SAA-C03", "Scrum", "GCP"],
   },
-] as const;
+];
 
 export type WorkloadStatus = "Running" | "Completed";
-export type ArchId = "bosch" | "manga";
 
 export type Workload = {
   name: string
@@ -90,7 +98,6 @@ export type Workload = {
   labels: Record<string, string>
   stack: string[]
   highlights: string[]
-  arch?: ArchId
 };
 
 export const workloads: Workload[] = [
@@ -103,7 +110,7 @@ export const workloads: Workload[] = [
     org: "Bosch Global Software Technologies (BGSV)",
     role: "DevOps Intern",
     location: "Ho Chi Minh City, Vietnam",
-    labels: { org: "bgsv", stack: "gitops" },
+    labels: { org: "bgsv" },
     stack: [
       "GitHub Actions",
       "self-hosted runners",
@@ -129,7 +136,6 @@ export const workloads: Workload[] = [
       "Customized a slim Docker base image with a CLI toolchain (k9s, AWS CLI, SSH), using proot for compatibility with OpenShift's non-root runtime.",
       "Designed and deployed three event-driven AWS automation stacks with modular Terraform: Bedrock token-usage cost tracking to DynamoDB, an IAM privilege-change audit with SNS alerts, and a real-time voice AI assistant over a secure WebSocket using Bedrock STT/TTS.",
     ],
-    arch: "bosch",
   },
   {
     name: "manga-app-capstone",
@@ -161,7 +167,6 @@ export const workloads: Workload[] = [
       "Built GitHub Actions CI/CD pipelines for both frontend (Flutter) and backend: automated tests with coverage and SonarCloud analysis, Docker build to Amazon ECR with Trivy scanning, and automated deployment.",
       "Load-tested the deployed system with k6, sustaining ~700 concurrent virtual users (peak ~1,200) on AWS.",
     ],
-    arch: "manga",
   },
   {
     name: "metadata-solutions-intern",
@@ -404,9 +409,9 @@ export const events: ClusterEvent[] = [
   },
   {
     ts: "2026-04",
-    resource: "bosch-devops-intern",
+    resource: "bosch-devops-engineer",
     reason: "Started",
-    message: "DevOps Intern at Bosch BGSV",
+    message: "DevOps Engineer at Bosch BGSV",
   },
   {
     ts: "2026-06",
@@ -416,41 +421,63 @@ export const events: ClusterEvent[] = [
   },
 ];
 
-export type ArchNodeKind = "ci" | "aws" | "k8s" | "data";
-
-export type ArchNode = {
-  label: string
-  kind: ArchNodeKind
-};
-
-export const archFlows: Record<ArchId, ArchNode[][]> = {
-  bosch: [
-    [
-      { label: "GitHub Actions", kind: "ci" },
-      { label: "self-hosted runners (AMI)", kind: "aws" },
-      { label: "OpenShift / ArgoCD / Helm", kind: "k8s" },
-      { label: "KEDA HPA", kind: "k8s" },
-      { label: "Grafana / Influx / Telegraf", kind: "data" },
-    ],
-  ],
-  manga: [
-    [
-      { label: "Route53", kind: "aws" },
-      { label: "CloudFront", kind: "aws" },
-      { label: "ALB + ACM", kind: "aws" },
-      { label: "EC2", kind: "aws" },
-      { label: "Postgres / Redis", kind: "data" },
-    ],
-    [
-      { label: "GitHub Actions", kind: "ci" },
-      { label: "ECR + Trivy", kind: "aws" },
-      { label: "k6 load test", kind: "ci" },
-    ],
-  ],
-};
-
 export function formatLabels(labels: Record<string, string>): string {
   return Object.entries(labels)
     .map(([k, v]) => `${k}=${v}`)
     .join(",");
+}
+
+const CV_KEYWORDS = [
+  "CI/CD",
+  "GitOps",
+  "GitHub Actions",
+  "self-hosted runners",
+  "Trivy",
+  "SonarQube",
+  "SonarCloud",
+  "OpenShift",
+  "Terraform",
+  "Terragrunt",
+  "ArgoCD",
+  "Helm",
+  "Kubernetes",
+  "KEDA",
+  "HPA",
+  "Grafana",
+  "InfluxDB",
+  "Telegraf",
+  "Docker",
+  "AWS CLI",
+  "AWS",
+  "k9s",
+  "SSH",
+  "proot",
+  "Bedrock",
+  "CloudWatch",
+  "Lambda",
+  "DynamoDB",
+  "IAM",
+  "SNS",
+  "S3",
+  "VPC",
+  "EC2",
+  "ALB",
+  "ACM",
+  "CloudFront",
+  "Route53",
+  "ECR",
+  "Flutter",
+  "Spring Boot",
+  "PostgreSQL",
+  "Redis",
+  "k6",
+  "n8n",
+  "Lex",
+  "API Gateway",
+  "Transcribe",
+  "AMI",
+] as const;
+
+export function keywordsFor(workload: Workload): string[] {
+  return [...new Set([...workload.stack, ...CV_KEYWORDS])];
 }

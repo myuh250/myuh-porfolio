@@ -29,11 +29,11 @@ export function engineerToYaml(): string {
     `  namespace: ${engineer.namespace}`,
     "  labels:",
     "    role: devops",
-    "    cert: saa-c03",
+    "    interest: sre",
+    "    aim: solutions-architect",
     "spec:",
     `  title: ${engineer.title}`,
     `  location: ${engineer.location}`,
-    `  context: ${engineer.context}`,
     "  contacts:",
     `    email: ${engineer.email}`,
     `    phone: "${engineer.phone}"`,
@@ -88,14 +88,14 @@ export function certToYaml(c: Cert): string {
   ].join("\n");
 }
 
-export function nodeToYaml(n: SkillNode): string {
+export function skillToYaml(n: SkillNode): string {
   return [
-    "apiVersion: v1",
-    "kind: Node",
+    "apiVersion: portfolio.local/v1",
+    "kind: Skill",
     "metadata:",
     `  name: ${n.name}`,
     "  labels:",
-    `    kubernetes.io/role: ${n.roles}`,
+    `    role: ${n.roles}`,
     "spec:",
     `  status: ${n.status}`,
     "  skills:",
@@ -120,7 +120,7 @@ export function contactToYaml(): string {
 }
 
 export function resourceYaml(
-  view: "overview" | "workloads" | "ingress" | "certs" | "nodes",
+  view: "overview" | "workloads" | "ingress" | "certs" | "skills",
   index: number,
 ): { name: string; yaml: string } {
   switch (view) {
@@ -136,10 +136,10 @@ export function resourceYaml(
         name: certs[index]?.name ?? certs[0].name,
         yaml: certToYaml(certs[index] ?? certs[0]),
       };
-    case "nodes":
+    case "skills":
       return {
         name: nodes[index]?.name ?? nodes[0].name,
-        yaml: nodeToYaml(nodes[index] ?? nodes[0]),
+        yaml: skillToYaml(nodes[index] ?? nodes[0]),
       };
     case "ingress":
       return { name: "contact", yaml: contactToYaml() };
