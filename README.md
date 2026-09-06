@@ -9,3 +9,7 @@ cd porf
 npm install
 npm run dev
 ```
+
+Live (GitHub Pages): https://myuh250.github.io/myuh-porfolio/
+
+Enable once in the repo: **Settings → Pages → Source: GitHub Actions**.

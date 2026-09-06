@@ -2,7 +2,7 @@
 
 k9s-style landing page for [Nguyen Tien Huy](https://github.com/myuh250) — DevOps & Infrastructure Engineer, AWS SAA-C03.
 
-Content is sourced from the Harvard-format CV in `../CV`. The UI is a static cluster console: workloads, certs, skills, and ingress map to experience, certifications, skills, and contact. The downloadable PDF is served as `/nguyen-tien-huy-devops.pdf`.
+Content is sourced from the Harvard-format CV in `../CV`. The UI is a static cluster console: workloads, certs, skills, and ingress map to experience, certifications, skills, and contact. The downloadable PDF is served as `/nguyen-tien-huy-devops.pdf` (or `/myuh-porfolio/nguyen-tien-huy-devops.pdf` on GitHub Pages).
 
 ## Run locally
 
@@ -46,3 +46,11 @@ kubectl apply -f k8s/
 ```
 
 The Ingress host `huyng2724.dev` is a placeholder — change it before apply.
+
+## GitHub Pages
+
+Pushes to `main` build `porf/` and publish to Pages:
+
+https://myuh250.github.io/myuh-porfolio/
+
+Enable once: **Repo → Settings → Pages → Source: GitHub Actions**.

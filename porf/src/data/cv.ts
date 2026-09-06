@@ -19,7 +19,7 @@ export const engineer = {
   phone: "0905963722",
   linkedin: "https://www.linkedin.com/in/huyng2724/",
   github: "https://github.com/myuh250",
-  cvPdf: "/nguyen-tien-huy-devops.pdf",
+  cvPdf: `${import.meta.env.BASE_URL}nguyen-tien-huy-devops.pdf`,
   namespace: "portfolio",
   context: "personal",
   age: "4y",
@@ -362,10 +362,10 @@ export const ingress: IngressRoute[] = [
   },
   {
     name: "cv-download",
-    host: "/nguyen-tien-huy-devops.pdf",
+    host: engineer.cvPdf,
     backend: "cv",
     port: "80",
-    href: "/nguyen-tien-huy-devops.pdf",
+    href: engineer.cvPdf,
   },
 ];
 
