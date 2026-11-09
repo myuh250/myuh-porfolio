@@ -4,7 +4,7 @@ const SKILL_COLOR: Record<string, string> = {
   GCP: "var(--gcp)",
   Terraform: "var(--tf)",
   Terragrunt: "var(--tf)",
-  Packer: "var(--tf)",
+  Packer: "var(--packer)",
   CloudFormation: "var(--aws)",
   Docker: "var(--docker)",
   Kubernetes: "var(--k8s)",

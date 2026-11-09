@@ -7,7 +7,9 @@ const describeLinks = [
   { needle: engineer.email, href: `mailto:${engineer.email}` },
   { needle: "linkedin.com/in/huyng2724", href: engineer.linkedin },
   { needle: "github.com/myuh250", href: engineer.github },
+  { needle: "substack.com/@myuh250", href: engineer.blog },
   { needle: "saa-c03", href: certs[0].href },
+  { needle: "aif-c01", href: certs[1].href },
 ] as const;
 
 function linkifyDescribe(text: string): ReactNode[] {

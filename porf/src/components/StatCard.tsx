@@ -5,6 +5,8 @@ const STACK_COLOR: Record<string, string> = {
   Terraform: "var(--tf)",
   Terragrunt: "var(--tf)",
   modules: "var(--tf)",
+  Packer: "var(--packer)",
+  CloudFormation: "var(--aws)",
   ArgoCD: "var(--argo)",
   Helm: "var(--helm)",
   Actions: "var(--gha)",
@@ -29,6 +31,7 @@ const ISSUER_COLOR: Record<string, string> = {
 
 function certShort(c: Cert): string {
   if (c.name === "saa-c03") return "SAA-C03";
+  if (c.name === "aif-c01") return "AIF-C01";
   if (c.name === "scrum-axon-active") return "Scrum";
   if (c.name === "gcp-fundamentals") return "GCP";
   return c.name;

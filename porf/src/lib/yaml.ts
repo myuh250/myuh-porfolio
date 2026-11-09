@@ -39,6 +39,7 @@ export function engineerToYaml(): string {
     `    phone: "${engineer.phone}"`,
     `    linkedin: ${engineer.linkedin}`,
     `    github: ${engineer.github}`,
+    `    blog: ${engineer.blog}`,
     "  education:",
     `    school: ${engineer.education.school}`,
     `    degree: ${engineer.education.degree}`,
@@ -115,6 +116,7 @@ export function contactToYaml(): string {
     `  phone: "${engineer.phone}"`,
     `  linkedin: ${engineer.linkedin}`,
     `  github: ${engineer.github}`,
+    `  blog: ${engineer.blog}`,
     `  cv: ${engineer.cvPdf}`,
   ].join("\n");
 }
